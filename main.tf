@@ -19,7 +19,10 @@ resource "aws_cloudwatch_metric_alarm" "cpu_high" {
     ignore_changes = ["alarm_name"]
   }
 
-  depends_on = ["aws_iam_role_policy.cloudwatch"]
+  depends_on = [
+    "aws_appautoscaling_target.main",
+    "aws_iam_role_policy.cloudwatch"
+  ]
 }
 
 resource "aws_cloudwatch_metric_alarm" "cpu_low" {
@@ -43,7 +46,10 @@ resource "aws_cloudwatch_metric_alarm" "cpu_low" {
     ignore_changes = ["alarm_name"]
   }
 
-  depends_on = ["aws_iam_role_policy.cloudwatch"]
+  depends_on = [
+    "aws_appautoscaling_target.main",
+    "aws_iam_role_policy.cloudwatch"
+  ]
 }
 
 resource "aws_cloudwatch_metric_alarm" "memory_high" {
@@ -67,7 +73,10 @@ resource "aws_cloudwatch_metric_alarm" "memory_high" {
     ignore_changes = ["alarm_name"]
   }
 
-  depends_on = ["aws_iam_role_policy.cloudwatch"]
+  depends_on = [
+    "aws_appautoscaling_target.main",
+    "aws_iam_role_policy.cloudwatch"
+  ]
 }
 
 resource "aws_cloudwatch_metric_alarm" "memory_low" {
@@ -91,7 +100,10 @@ resource "aws_cloudwatch_metric_alarm" "memory_low" {
     ignore_changes = ["alarm_name"]
   }
 
-  depends_on = ["aws_iam_role_policy.cloudwatch"]
+  depends_on = [
+    "aws_appautoscaling_target.main",
+    "aws_iam_role_policy.cloudwatch"
+  ]
 }
 
 resource "aws_appautoscaling_target" "main" {
@@ -102,10 +114,13 @@ resource "aws_appautoscaling_target" "main" {
   min_capacity       = "${var.ecs_service_min_capacity}"
   max_capacity       = "${var.ecs_service_max_capacity}"
 
-  depends_on = ["aws_iam_role_policy.cloudwatch"]
+  depends_on = [
+    "aws_iam_role.autoscaling",
+    "aws_iam_role_policy.cloudwatch"
+  ]
 }
 
-resource "aws_autoscaling_policy" "service_up" {
+resource "aws_appautoscaling_policy" "service_up" {
   name                    = "${uuid()}"
   service_namespace       = "ecs"
   resource_id             = "service/${var.ecs_cluster_name}/${var.ecs_service_name}"
@@ -121,6 +136,7 @@ resource "aws_autoscaling_policy" "service_up" {
 
   depends_on = [
     "aws_appautoscaling_target.main",
+    "aws_iam_role_policy.cloudwatch"
   ]
 
   lifecycle {
@@ -130,7 +146,7 @@ resource "aws_autoscaling_policy" "service_up" {
   }
 }
 
-resource "aws_autoscaling_policy" "service_down" {
+resource "aws_appautoscaling_policy" "service_down" {
   name                    = "${uuid()}"
   service_namespace       = "ecs"
   resource_id             = "service/${var.ecs_cluster_name}/${var.ecs_service_name}"
@@ -146,6 +162,7 @@ resource "aws_autoscaling_policy" "service_down" {
 
   depends_on = [
     "aws_appautoscaling_target.main",
+    "aws_iam_role_policy.cloudwatch"
   ]
 
   lifecycle {
@@ -161,6 +178,7 @@ resource "aws_iam_role" "autoscaling" {
 
 data "template_file" "cloudwatch-policy" {
   template = "${file("${path.module}/policies/cloudwatch.json")}"
+
   vars {
     ecs_service_arn = "${var.ecs_service_arn}"
   }
