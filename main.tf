@@ -1,6 +1,6 @@
 resource "aws_cloudwatch_metric_alarm" "cpu_high" {
   alarm_name          = "${uuid()}"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
+  comparison_operator = "${var.cpu_high_comparison_operator}"
   evaluation_periods  = "${var.cpu_high_evaluation_periods}"
   metric_name         = "CPUUtilization"
   namespace           = "AWS/ECS"
@@ -27,7 +27,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_high" {
 
 resource "aws_cloudwatch_metric_alarm" "cpu_low" {
   alarm_name          = "${uuid()}"
-  comparison_operator = "LessThanOrEqualToThreshold"
+  comparison_operator = "${var.cpu_low_comparison_operator}"
   evaluation_periods  = "${var.cpu_low_evaluation_periods}"
   metric_name         = "CPUUtilization"
   namespace           = "AWS/ECS"
@@ -54,7 +54,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_low" {
 
 resource "aws_cloudwatch_metric_alarm" "memory_high" {
   alarm_name          = "${uuid()}"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
+  comparison_operator = "${var.memory_high_comparison_operator}"
   evaluation_periods  = "${var.memory_high_evaluation_periods}"
   metric_name         = "MemoryUtilization"
   namespace           = "AWS/ECS"
@@ -81,7 +81,7 @@ resource "aws_cloudwatch_metric_alarm" "memory_high" {
 
 resource "aws_cloudwatch_metric_alarm" "memory_low" {
   alarm_name          = "${uuid()}"
-  comparison_operator = "LessThanOrEqualToThreshold"
+  comparison_operator = "${var.memory_low_comparison_operator}"
   evaluation_periods  = "${var.memory_low_evaluation_periods}"
   metric_name         = "MemoryUtilization"
   namespace           = "AWS/ECS"

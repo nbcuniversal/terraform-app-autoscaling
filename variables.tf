@@ -12,6 +12,11 @@ variable "ecs_service_max_capacity" {
   default = 32
 }
 
+variable "cpu_high_comparison_operator" {
+  default = "GreaterThanOrEqualToThreshold"
+  description = "A list of available comparison operators can be found here: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-comparisonoperator"
+}
+
 variable "cpu_high_evaluation_periods" {
   default = 5
 }
@@ -28,6 +33,11 @@ variable "cpu_high_threshold" {
   default = 75
 }
 
+variable "cpu_low_comparison_operator" {
+  default = "LessThanOrEqualToThreshold"
+  description = "A list of available comparison operators can be found here: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-comparisonoperator"
+}
+
 variable "cpu_low_evaluation_periods" {
   default = 30
 }
@@ -38,6 +48,11 @@ variable "cpu_low_period_seconds" {
 
 variable "cpu_low_threshold" {
   default = 10
+}
+
+variable "memory_high_comparison_operator" {
+  default = "GreaterThanOrEqualToThreshold"
+  description = "A list of available comparison operators can be found here: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-comparisonoperator"
 }
 
 variable "memory_high_evaluation_periods" {
@@ -54,6 +69,11 @@ variable "memory_high_statistic_type" {
 
 variable "memory_high_threshold" {
   default = 75
+}
+
+variable "memory_low_comparison_operator" {
+  default = "LessThanOrEqualToThreshold"
+  description = "A list of available comparison operators can be found here: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-comparisonoperator"
 }
 
 variable "memory_low_evaluation_periods" {
