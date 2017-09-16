@@ -125,13 +125,13 @@ resource "aws_appautoscaling_policy" "service_up" {
   service_namespace       = "ecs"
   resource_id             = "service/${var.ecs_cluster_name}/${var.ecs_service_name}"
   scalable_dimension      = "ecs:service:DesiredCount"
-  adjustment_type         = "ChangeInCapacity"
+  adjustment_type         = "${var.scaling_policy_up_adjustment_type}"
   cooldown                = "${var.scaling_policy_up_cooldown}"
-  metric_aggregation_type = "Average"
+  metric_aggregation_type = "${var.scaling_policy_up_aggregation_type}"
 
   step_adjustment {
     metric_interval_lower_bound = 0
-    scaling_adjustment          = 1
+    scaling_adjustment          = "${var.scaling_policy_up_adjustment}"
   }
 
   depends_on = [
@@ -151,13 +151,13 @@ resource "aws_appautoscaling_policy" "service_down" {
   service_namespace       = "ecs"
   resource_id             = "service/${var.ecs_cluster_name}/${var.ecs_service_name}"
   scalable_dimension      = "ecs:service:DesiredCount"
-  adjustment_type         = "ChangeInCapacity"
+  adjustment_type         = "${var.scaling_policy_down_adjustment_type}"
   cooldown                = "${var.scaling_policy_down_cooldown}"
-  metric_aggregation_type = "Average"
+  metric_aggregation_type = "${var.scaling_policy_down_aggregation_type}"
 
   step_adjustment {
     metric_interval_lower_bound = 0
-    scaling_adjustment          = -1
+    scaling_adjustment          = "${var.scaling_policy_down_adjustment}"
   }
 
   depends_on = [

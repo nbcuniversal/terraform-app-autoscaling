@@ -5,7 +5,7 @@ variable "ecs_service_name" {}
 variable "ecs_service_arn" {}
 
 variable "ecs_service_min_capacity" {
-  default = 4
+  default = 2
 }
 
 variable "ecs_service_max_capacity" {
@@ -88,10 +88,34 @@ variable "memory_low_threshold" {
   default = 10
 }
 
+variable "scaling_policy_up_adjustment_type" {
+  default = "ChangeInCapacity"
+}
+
 variable "scaling_policy_up_cooldown" {
   default = 300
 }
 
+variable "scaling_policy_up_aggregation_type" {
+  default = "Average"
+}
+
+variable "scaling_policy_up_adjustment" {
+  default = 1
+}
+
+variable "scaling_policy_down_adjustment_type" {
+  default = "ChangeInCapacity"
+}
+
 variable "scaling_policy_down_cooldown" {
   default = 600
+}
+
+variable "scaling_policy_down_aggregation_type" {
+  default = "Average"
+}
+
+variable "scaling_policy_down_adjustment" {
+  default = -1
 }
