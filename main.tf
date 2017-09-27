@@ -52,60 +52,6 @@ resource "aws_cloudwatch_metric_alarm" "cpu_low" {
   ]
 }
 
-resource "aws_cloudwatch_metric_alarm" "memory_high" {
-  alarm_name          = "${uuid()}"
-  comparison_operator = "${var.memory_high_comparison_operator}"
-  evaluation_periods  = "${var.memory_high_evaluation_periods}"
-  metric_name         = "MemoryUtilization"
-  namespace           = "AWS/ECS"
-  period              = "${var.memory_high_period_seconds}"
-  statistic           = "Average"
-  threshold           = "${var.memory_high_threshold}"
-
-  dimensions {
-    ClusterName = "${var.ecs_cluster_name}"
-    ServiceName = "${var.ecs_service_name}"
-  }
-
-  alarm_actions = ["${aws_appautoscaling_policy.service_up.arn}"]
-
-  lifecycle {
-    ignore_changes = ["alarm_name"]
-  }
-
-  depends_on = [
-    "aws_appautoscaling_target.main",
-    "aws_iam_role_policy.cloudwatch"
-  ]
-}
-
-resource "aws_cloudwatch_metric_alarm" "memory_low" {
-  alarm_name          = "${uuid()}"
-  comparison_operator = "${var.memory_low_comparison_operator}"
-  evaluation_periods  = "${var.memory_low_evaluation_periods}"
-  metric_name         = "MemoryUtilization"
-  namespace           = "AWS/ECS"
-  period              = "${var.memory_low_period_seconds}"
-  statistic           = "Average"
-  threshold           = "${var.memory_low_threshold}"
-
-  dimensions {
-    ClusterName = "${var.ecs_cluster_name}"
-    ServiceName = "${var.ecs_service_name}"
-  }
-
-  alarm_actions = ["${aws_appautoscaling_policy.service_down.arn}"]
-
-  lifecycle {
-    ignore_changes = ["alarm_name"]
-  }
-
-  depends_on = [
-    "aws_appautoscaling_target.main",
-    "aws_iam_role_policy.cloudwatch"
-  ]
-}
-
 resource "aws_appautoscaling_target" "main" {
   service_namespace  = "ecs"
   resource_id        = "service/${var.ecs_cluster_name}/${var.ecs_service_name}"
