@@ -13,7 +13,7 @@ variable "ecs_service_max_capacity" {
 }
 
 variable "cpu_high_comparison_operator" {
-  default = "GreaterThanOrEqualToThreshold"
+  default     = "GreaterThanOrEqualToThreshold"
   description = "A list of available comparison operators can be found here: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-comparisonoperator"
 }
 
@@ -34,7 +34,7 @@ variable "cpu_high_threshold" {
 }
 
 variable "cpu_low_comparison_operator" {
-  default = "LessThanOrEqualToThreshold"
+  default     = "LessThanOrEqualToThreshold"
   description = "A list of available comparison operators can be found here: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-comparisonoperator"
 }
 
@@ -80,4 +80,8 @@ variable "scaling_policy_down_aggregation_type" {
 
 variable "scaling_policy_down_adjustment" {
   default = -1
+}
+
+variable "metric" {
+  default = "MemoryUtilization"
 }
