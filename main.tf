@@ -1,12 +1,12 @@
-resource "aws_cloudwatch_metric_alarm" "cpu_high" {
+resource "aws_cloudwatch_metric_alarm" "high" {
   alarm_name          = "${uuid()}"
-  comparison_operator = "${var.cpu_high_comparison_operator}"
-  evaluation_periods  = "${var.cpu_high_evaluation_periods}"
-  metric_name         = "CPUUtilization"
+  comparison_operator = "${var.high_comparison_operator}"
+  evaluation_periods  = "${var.high_evaluation_periods}"
+  metric_name         = "${var.metric}"
   namespace           = "AWS/ECS"
-  period              = "${var.cpu_high_period_seconds}"
-  statistic           = "${var.cpu_high_statistic_type}"
-  threshold           = "${var.cpu_high_threshold}"
+  period              = "${var.high_period_seconds}"
+  statistic           = "${var.high_statistic_type}"
+  threshold           = "${var.high_threshold}"
 
   dimensions {
     ClusterName = "${var.ecs_cluster_name}"
@@ -21,19 +21,19 @@ resource "aws_cloudwatch_metric_alarm" "cpu_high" {
 
   depends_on = [
     "aws_appautoscaling_target.main",
-    "aws_iam_role_policy.cloudwatch"
+    "aws_iam_role_policy.cloudwatch",
   ]
 }
 
-resource "aws_cloudwatch_metric_alarm" "cpu_low" {
+resource "aws_cloudwatch_metric_alarm" "low" {
   alarm_name          = "${uuid()}"
-  comparison_operator = "${var.cpu_low_comparison_operator}"
-  evaluation_periods  = "${var.cpu_low_evaluation_periods}"
-  metric_name         = "CPUUtilization"
+  comparison_operator = "${var.low_comparison_operator}"
+  evaluation_periods  = "${var.low_evaluation_periods}"
+  metric_name         = "${var.metric}"
   namespace           = "AWS/ECS"
-  period              = "${var.cpu_low_period_seconds}"
+  period              = "${var.low_period_seconds}"
   statistic           = "Average"
-  threshold           = "${var.cpu_low_threshold}"
+  threshold           = "${var.low_threshold}"
 
   dimensions {
     ClusterName = "${var.ecs_cluster_name}"
@@ -48,7 +48,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_low" {
 
   depends_on = [
     "aws_appautoscaling_target.main",
-    "aws_iam_role_policy.cloudwatch"
+    "aws_iam_role_policy.cloudwatch",
   ]
 }
 
@@ -62,7 +62,7 @@ resource "aws_appautoscaling_target" "main" {
 
   depends_on = [
     "aws_iam_role.autoscaling",
-    "aws_iam_role_policy.cloudwatch"
+    "aws_iam_role_policy.cloudwatch",
   ]
 }
 
@@ -82,7 +82,7 @@ resource "aws_appautoscaling_policy" "service_up" {
 
   depends_on = [
     "aws_appautoscaling_target.main",
-    "aws_iam_role_policy.cloudwatch"
+    "aws_iam_role_policy.cloudwatch",
   ]
 
   lifecycle {
@@ -108,7 +108,7 @@ resource "aws_appautoscaling_policy" "service_down" {
 
   depends_on = [
     "aws_appautoscaling_target.main",
-    "aws_iam_role_policy.cloudwatch"
+    "aws_iam_role_policy.cloudwatch",
   ]
 
   lifecycle {
