@@ -81,3 +81,41 @@ variable "scaling_policy_down_aggregation_type" {
 variable "scaling_policy_down_adjustment" {
   default = -1
 }
+
+variable "memory_high_comparison_operator" {
+  default = "GreaterThanOrEqualToThreshold"
+  description = "A list of available comparison operators can be found here: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-comparisonoperator"
+}
+
+variable "memory_high_evaluation_periods" {
+  default = 1
+}
+
+variable "memory_high_period_seconds" {
+  default = 60
+}
+
+variable "memory_high_statistic_type" {
+  default = "Average"
+}
+
+variable "memory_high_threshold" {
+  default = 75
+}
+
+variable "memory_low_comparison_operator" {
+  default = "LessThanOrEqualToThreshold"
+  description = "A list of available comparison operators can be found here: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-comparisonoperator"
+}
+
+variable "memory_low_evaluation_periods" {
+  default = 1
+}
+
+variable "memory_low_period_seconds" {
+  default = 60
+}
+
+variable "memory_low_threshold" {
+  default = 25
+}
