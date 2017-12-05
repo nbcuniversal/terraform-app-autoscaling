@@ -1,12 +1,12 @@
-resource "aws_cloudwatch_metric_alarm" "memory_high" {
+resource "aws_cloudwatch_metric_alarm" "cpu_high" {
   alarm_name          = "${uuid()}"
-  comparison_operator = "${var.memory_high_comparison_operator}"
-  evaluation_periods  = "${var.memory_high_evaluation_periods}"
-  metric_name         = "MemoryUtilization"
+  comparison_operator = "${var.cpu_high_comparison_operator}"
+  evaluation_periods  = "${var.cpu_high_evaluation_periods}"
+  metric_name         = "CPUUtilization"
   namespace           = "AWS/ECS"
-  period              = "${var.memory_high_period_seconds}"
-  statistic           = "${var.memory_high_statistic_type}"
-  threshold           = "${var.memory_high_threshold}"
+  period              = "${var.cpu_high_period_seconds}"
+  statistic           = "${var.cpu_high_statistic_type}"
+  threshold           = "${var.cpu_high_threshold}"
 
   dimensions {
     ClusterName = "${var.ecs_cluster_name}"
@@ -25,15 +25,15 @@ resource "aws_cloudwatch_metric_alarm" "memory_high" {
   ]
 }
 
-resource "aws_cloudwatch_metric_alarm" "memory_low" {
+resource "aws_cloudwatch_metric_alarm" "cpu_low" {
   alarm_name          = "${uuid()}"
-  comparison_operator = "${var.memory_low_comparison_operator}"
-  evaluation_periods  = "${var.memory_low_evaluation_periods}"
-  metric_name         = "MemoryUtilization"
+  comparison_operator = "${var.cpu_low_comparison_operator}"
+  evaluation_periods  = "${var.cpu_low_evaluation_periods}"
+  metric_name         = "CPUUtilization"
   namespace           = "AWS/ECS"
-  period              = "${var.memory_low_period_seconds}"
+  period              = "${var.cpu_low_period_seconds}"
   statistic           = "Average"
-  threshold           = "${var.memory_low_threshold}"
+  threshold           = "${var.cpu_low_threshold}"
 
   dimensions {
     ClusterName = "${var.ecs_cluster_name}"
