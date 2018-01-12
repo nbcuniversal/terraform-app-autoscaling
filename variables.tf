@@ -96,7 +96,7 @@ variable "memory_high_period_seconds" {
 }
 
 variable "memory_high_statistic_type" {
-  default = "Maximum"
+  default = "Average"
 }
 
 variable "memory_high_threshold" {
