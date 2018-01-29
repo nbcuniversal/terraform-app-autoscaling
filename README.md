@@ -20,8 +20,8 @@ AWS ECS application autoscaling module for Terraform
 | cpu_low_threshold |  | string | `10` | no |
 | ecs_cluster_name |  | string | - | yes |
 | ecs_service_arn |  | string | - | yes |
-| ecs_service_max_capacity |  | string | `32` | no |
-| ecs_service_min_capacity |  | string | `4` | no |
+| ecs_service_max_capacity |  | string | `4` | no |
+| ecs_service_min_capacity |  | string | `2` | no |
 | ecs_service_name |  | string | - | yes |
 | memory_high_comparison_operator | A list of available comparison operators can be found here: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-comparisonoperator | string | `GreaterThanOrEqualToThreshold` | no |
 | memory_high_evaluation_periods |  | string | `5` | no |

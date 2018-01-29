@@ -9,7 +9,7 @@ variable "ecs_service_min_capacity" {
 }
 
 variable "ecs_service_max_capacity" {
-  default = 32
+  default = 4
 }
 
 variable "cpu_high_comparison_operator" {
