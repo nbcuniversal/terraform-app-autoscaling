@@ -100,7 +100,7 @@ variable "memory_high_statistic_type" {
 }
 
 variable "memory_high_threshold" {
-  default = 75
+  default = 150
 }
 
 variable "memory_low_comparison_operator" {
@@ -117,5 +117,5 @@ variable "memory_low_period_seconds" {
 }
 
 variable "memory_low_threshold" {
-  default = 25
+  default = 50
 }
